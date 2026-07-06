@@ -1,3 +1,4 @@
+version: "3.8"
 
 services:
   mongo:
@@ -10,22 +11,20 @@ services:
       - mongo-data:/data/db
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: arslanlinux/mern-backend:latest
     container_name: backend
     restart: unless-stopped
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      JWT_SECRET: ${JWT_SECRET}
+      PAYPAL_CLIENT_ID: ${PAYPAL_CLIENT_ID}
     ports:
       - "4000:4000"
-    env_file:
-      - ./backend/.env
     depends_on:
       - mongo
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: arslanlinux/mern-frontend:latest
     container_name: frontend
     restart: unless-stopped
     ports:
