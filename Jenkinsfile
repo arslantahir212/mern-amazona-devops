@@ -2,6 +2,8 @@ pipeline
  agent any
  stages{
    stage('Code') {
-     steps
+     steps{
+      git branch: 'main', url: '
+     }
    }
  }
