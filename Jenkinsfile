@@ -1,4 +1,4 @@
-pipeline
+pipeline{
  agent any
  stages{
    stage('Code') {
@@ -69,4 +69,5 @@ pipeline
             sh 'docker images'
         }
     }
+}
 }
