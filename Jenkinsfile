@@ -46,14 +46,24 @@ pipeline{
             }
         }
 
-        stage('Deploy Application') {
-            steps {
-                sh '''
-                    docker compose down
-                    docker compose up -d
-                '''
-            }
+    stage('Deploy Application') {
+    steps {
+        withCredentials([
+            string(credentialsId: 'MONGODB_URI', variable: 'MONGODB_URI'),
+            string(credentialsId: 'JWT_SECRET', variable: 'JWT_SECRET'),
+            string(credentialsId: 'PAYPAL_CLIENT_ID', variable: 'PAYPAL_CLIENT_ID')
+        ]) {
+            sh '''
+                export MONGODB_URI=$MONGODB_URI
+                export JWT_SECRET=$JWT_SECRET
+                export PAYPAL_CLIENT_ID=$PAYPAL_CLIENT_ID
+
+                docker compose down
+                docker compose up -d
+            '''
         }
+    }
+}
  }
   
     post {
