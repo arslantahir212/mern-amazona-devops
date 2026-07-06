@@ -9,7 +9,7 @@ pipeline{
    stage('Build Backend Image') {
       steps {
         dir('backend') {
-          sh 'docker build -t arslanlinux/mern-backend:latest.'
+          sh 'docker build -t arslanlinux/mern-backend:latest .'
         } 
       } 
    }
@@ -54,6 +54,7 @@ pipeline{
                 '''
             }
         }
+ }
   
     post {
         success {
@@ -70,4 +71,4 @@ pipeline{
         }
     }
 }
-}
+
